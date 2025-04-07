@@ -23,6 +23,8 @@ services:
       - 6789:6789
     volumes:
       - .:/home/src/
+    profiles:
+      - mage
     networks:
       default: {}    
     restart: on-failure:5
@@ -45,6 +47,8 @@ services:
         limits:
           cpus: '0.5'
           memory: 1G
+    profiles:
+      - postgresql
     networks:
       default: {} 
 
@@ -59,7 +63,6 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - ./postgresql:/var/lib/postgresql/data
-      - ./configs/postgresql/create-db.sql:/docker-entrypoint-initdb.d/create-db.sql
     shm_size: 8gb
     profiles:
       - postgresql
